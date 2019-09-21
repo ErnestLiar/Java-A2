@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /* NetIds: el657, ny46.
@@ -32,7 +33,7 @@ public class A2 {
      * Example: for 3 hours 15 minutes, use 3.25<br>
      * Example: for 4 hours 30 minutes, use 4.50<br>
      * Example: for 5 hours, use 5 or 5.0 */
-    public static double timeSpent= 6.7;
+    public static double timeSpent= 7.50;
 
     /** Return either s1 + s2 or s1 - s2, depending on b. <br>
      * If b is true, return the sum, otherwise return the difference. */
@@ -117,39 +118,40 @@ public class A2 {
      * ......... return "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz" */
     public static String addCapsToSmalls(String s) {
         // TODO 2.
-        String s1= s;
-        // strings are immutable so we have to create a new string
 
-        s1= s1.replaceAll("a", "Aa");
-        s1= s1.replaceAll("b", "Bb");
-        s1= s1.replaceAll("c", "Cc");
-        s1= s1.replaceAll("d", "Dd");
-        s1= s1.replaceAll("e", "Ee");
-        s1= s1.replaceAll("f", "Ff");
-        s1= s1.replaceAll("g", "Gg");
-        s1= s1.replaceAll("h", "Hh");
-        s1= s1.replaceAll("i", "Ii");
-        s1= s1.replaceAll("j", "Jj");
-        s1= s1.replaceAll("k", "Kk");
-        s1= s1.replaceAll("l", "Ll");
-        s1= s1.replaceAll("m", "Mm");
-        s1= s1.replaceAll("n", "Nn");
-        s1= s1.replaceAll("o", "Oo");
-        s1= s1.replaceAll("p", "Pp");
-        s1= s1.replaceAll("q", "Qq");
-        s1= s1.replaceAll("r", "Rr");
-        s1= s1.replaceAll("s", "Ss");
-        s1= s1.replaceAll("t", "Tt");
-        s1= s1.replaceAll("u", "Uu");
-        s1= s1.replaceAll("v", "Vv");
-        s1= s1.replaceAll("w", "Ww");
-        s1= s1.replaceAll("x", "Xx");
-        s1= s1.replaceAll("y", "Yy");
-        s1= s1.replaceAll("z", "Zz");
+        // turn s into individual , check if it's lower case, if so attach
+        // an uppercase char in the array, and combine all chars into string
+        if (s.length() == 0) return "";
 
-        // We're sorry but it gets the job done without any explicit loops
+        ArrayList<Character> list= new ArrayList<>(s.length());
+        for (int i= 0; i < s.length(); i++ ) {
+            list.add(s.charAt(i));
+        }
+        // list should have all chars in s
+        for (int i= 0; i < list.size(); i++ ) {
+            char check= list.get(i);
+            if (check >= 'a' && check < '{') {
+                // checking if it's a lowercase character we need to add to
+                list.add(i, Character.toUpperCase(check));
+                i++ ;
+                // we have to increment i again because we just added a character
+                // before i's index. We want to look at the character after i's index
+                // not just the char at index i again
 
-        return s1;
+            }
+        }
+        // turn arraylist to string using stringbuilder
+
+        StringBuilder sb= new StringBuilder();
+
+        for (Character chars : list) {
+            sb.append(chars);
+        }
+
+        String output= sb.toString();
+
+        return output;
+
     }
 
     /** Return s but with each occurrence of a letter in 'b'..'z' replaced by<br>
@@ -338,6 +340,7 @@ public class A2 {
 
     public static void main(String[] args) {
 
+        System.out.println(addCapsToSmalls("1Z$Bby"));
         System.out.println("weird thing: " + "h".indexOf("", 9));
 
     }
